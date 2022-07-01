@@ -2,7 +2,6 @@
 
 <PageTitle>Weather forecast</PageTitle>
 
-@using BlazorApp.Data
 @inject WeatherForecastService ForecastService
 
 <h1>Weather forecast</h1>
@@ -17,7 +16,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table table-info table-striped">
         <thead>
         <tr>
             <th>Date</th>
