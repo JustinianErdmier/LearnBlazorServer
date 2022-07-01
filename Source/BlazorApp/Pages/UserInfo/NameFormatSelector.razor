@@ -1,0 +1,63 @@
+﻿<div class="mt-4">
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-outline-primary"
+                    @onclick="() => SelectFormat(NameFormat.Standard)">
+                Standard
+            </button>
+
+            <button class="btn btn-outline-secondary"
+                    @onclick="() => SelectFormat(NameFormat.Reversed)">
+                Reversed
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col">
+            <button class="btn btn-outline-primary"
+                    @onclick="() => SelectFormat(NameFormat.Initial)">
+                Initial
+            </button>
+
+            <button class="btn btn-outline-secondary"
+                    @onclick="() => SelectFormat(NameFormat.Email)">
+                Email
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public enum NameFormat
+    {
+        Standard,
+
+        Reversed,
+
+        Initial,
+
+        Email
+    }
+
+        private const string FirstLast = "FirstLast";
+
+        private const string LastFirst = "LastFirst";
+
+    [ Parameter ]
+    public EventCallback<string> OnFormatSelection { get; set; }
+
+    private void SelectFormat(NameFormat format)
+    {
+        string formatAsString = format switch {
+                                NameFormat.Standard => "Standard",
+                                NameFormat.Reversed => "Reversed",
+                                NameFormat.Initial => "Initial",
+                                NameFormat.Email => "Email",
+                                _ => string.Empty
+                                };
+        OnFormatSelection.InvokeAsync(formatAsString);
+    }
+
+}

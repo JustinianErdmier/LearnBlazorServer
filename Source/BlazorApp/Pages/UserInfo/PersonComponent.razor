@@ -1,4 +1,16 @@
-﻿<h2>@FirstName @LastName</h2>
+﻿<h2>@name</h2>
+
+<button class="btn btn-secondary"
+        @onclick="ToggleNameFormatOptions">Format Name</button>
+<br />
+
+@if (displayNameFormatOptions)
+{
+    <NameFormatSelector OnFormatSelection="UpdateName"></NameFormatSelector>
+}
+
+<br />
+
 @AddressFragment
 
 
@@ -12,5 +24,31 @@
 
     [ Parameter ]
     public RenderFragment? AddressFragment { get; set; }
+
+    private bool displayNameFormatOptions;
+
+    private string name = string.Empty;
+
+    private void ToggleNameFormatOptions() => displayNameFormatOptions = ! displayNameFormatOptions;
+
+    private void UpdateName(string format)
+    {
+        name = format switch 
+               {
+               "Standard" => $"{FirstName} {LastName}", 
+               "Reversed" => $"{LastName}, {FirstName}", 
+               "Initial" => $"{FirstName?[..1]}. {LastName}",
+               "Email" => $"{FirstName?[..1]}{LastName}",
+               _ => name};
+        ToggleNameFormatOptions();
+    }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        name = $"{FirstName} {LastName}";
+    }
 
 }
