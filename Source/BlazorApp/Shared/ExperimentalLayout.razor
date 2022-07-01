@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>BlazorApp</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4 bg-danger">
+            <span class="flex-fill text-white">Experimental Page</span>
+            <button class="btn btn-primary mx-2"
+                    @onclick="ThumbsUp">
+                <span class="oi oi-thumb-up"></span> Approvals: @approvals
+            </button>
+            <button class="btn btn-primary mx-2"
+                    @onclick="ThumbsDown">
+                <span class="oi oi-thumb-down"></span> Disapprovals: @disapprovals
+            </button>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+
+        <footer class="text-center">
+            Copyright &copy; Justin Erdmier, 2022
+        </footer>
+    </main>
+</div>
+
+@code
+{
+    private int approvals;
+
+    private int disapprovals;
+
+    private void ThumbsUp()
+    {
+        approvals += 1;
+    }
+
+    private void ThumbsDown()
+    {
+        disapprovals += 1;
+    }
+}
