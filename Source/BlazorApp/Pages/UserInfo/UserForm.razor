@@ -1,22 +1,62 @@
 ﻿@page "/directory/create-person"
 
 <h3>User Form</h3>
-<p>
+<h5 class="text-success">
     @formResults
-</p>
+</h5>
 <p>
     First Name: @person.FirstName
 </p>
 <p>
     Last Name: @person.LastName
 </p>
+<p>
+    Age: @person.Age
+</p>
+<p>
+    Consent: @person.ConsentGiven
+</p>
 
 <EditForm Model="@person"
-          OnValidSubmit="HandleValidSubmit">
-    <InputText @bind-Value="person.FirstName"
-               id="firstName"></InputText>
-    <InputText @bind-Value="person.LastName"
-               id="lastName"></InputText>
+          OnValidSubmit="HandleValidSubmission">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label for="firstName">First Name:</label>
+        <InputText @bind-Value="person.FirstName"
+                   id="firstName"></InputText>
+    </div>
+
+    <br />
+
+    <div>
+        <label for="lastName">Last Name:</label>
+        <InputText @bind-Value="person.LastName"
+                   id="lastName"></InputText>
+    </div>
+
+    <br />
+
+    <div>
+        <label for="age">Age:</label>
+        <InputNumber @bind-Value="person.Age"
+                     id="age"></InputNumber>
+    </div>
+
+    <br />
+
+    <div>
+        <label for="consent">Do You Consent?</label>
+        <InputCheckbox @bind-Value="person.ConsentGiven"
+                       id="consent"></InputCheckbox>
+    </div>
+
+    <br />
+
+    <ValidationSummary />
+
+    <br />
+
     <button class="btn btn-primary"
             type="submit">Submit</button>
 </EditForm>
@@ -28,9 +68,12 @@
 
     private string formResults = string.Empty;
 
-    private void HandleValidSubmit()
+    private void HandleValidSubmission()
     {
-        formResults = $"{person.FirstName} {person.LastName} has been updated.";
+        formResults = "A valid user has been created.";
+        person = new PersonModel();
     }
+
+    private void HandleInvalidSubmit() { }
 
 }
