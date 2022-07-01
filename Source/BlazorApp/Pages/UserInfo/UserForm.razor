@@ -1,0 +1,36 @@
+﻿@page "/directory/create-person"
+
+<h3>User Form</h3>
+<p>
+    @formResults
+</p>
+<p>
+    First Name: @person.FirstName
+</p>
+<p>
+    Last Name: @person.LastName
+</p>
+
+<EditForm Model="@person"
+          OnValidSubmit="HandleValidSubmit">
+    <InputText @bind-Value="person.FirstName"
+               id="firstName"></InputText>
+    <InputText @bind-Value="person.LastName"
+               id="lastName"></InputText>
+    <button class="btn btn-primary"
+            type="submit">Submit</button>
+</EditForm>
+
+
+@code {
+
+    private PersonModel person = new();
+
+    private string formResults = string.Empty;
+
+    private void HandleValidSubmit()
+    {
+        formResults = $"{person.FirstName} {person.LastName} has been updated.";
+    }
+
+}
