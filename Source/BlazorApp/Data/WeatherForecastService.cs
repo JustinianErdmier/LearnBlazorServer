@@ -18,13 +18,21 @@ public class WeatherForecastService
 
     private readonly ILogger<WeatherForecastService> _logger;
 
-    public WeatherForecastService(ILogger<WeatherForecastService> logger) => _logger = logger;
+    private readonly IConfiguration _configuration;
+
+    public WeatherForecastService(ILogger<WeatherForecastService> logger, IConfiguration configuration)
+    {
+        _logger        = logger;
+        _configuration = configuration;
+    }
 
     public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
     {
         _logger.LogInformation("Getting the forecast");
 
-        return Task.FromResult(Enumerable.Range(1, 5)
+        int upperValue = _configuration.GetValue<int>("WeatherForecast:ForecastDays");
+
+        return Task.FromResult(Enumerable.Range(1, upperValue)
                                          .Select(index => new WeatherForecast
                                                           {
                                                               Date         = startDate.AddDays(index),

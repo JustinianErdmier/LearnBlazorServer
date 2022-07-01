@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject ILogger<Index> Logger
+@inject IConfiguration Configuration
 
 <PageTitle>Index</PageTitle>
 
@@ -17,7 +18,7 @@ Welcome to your new app.
         base.OnInitialized();
 
     // Given some data...
-        const int id = 25;
+        int id = Configuration.GetValue<int>("WeatherForecast:ForecastDays");
 
     // Log it using Structured Logging...
         Logger.LogInformation("User created with id {UserId}", id);

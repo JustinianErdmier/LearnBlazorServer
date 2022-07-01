@@ -4,6 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{7EDD7FA9
 	ProjectSection(SolutionItems) = preProject
 		Notes\Logging.md = Notes\Logging.md
 		Notes\DependencyInjection.md = Notes\DependencyInjection.md
+		Notes\Configuration.md = Notes\Configuration.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C1A8AFFE-344F-42FE-8396-BF19F2240C9F}"
