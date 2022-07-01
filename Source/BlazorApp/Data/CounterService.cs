@@ -5,18 +5,19 @@
 
 namespace BlazorApp.Data;
 
-public class CounterModel
+public class CounterService
+    : ICounterService
 {
-    private readonly ILogger<CounterModel> _logger;
+    private readonly ILogger<CounterService> _logger;
 
-    public CounterModel(ILogger<CounterModel> logger) => _logger = logger;
+    public CounterService(ILogger<CounterService> logger) => _logger = logger;
 
     public int CurrentCount { get; private set; }
 
     public void IncrementCount()
     {
         _logger.LogInformation("Current Count: {CurrentCount}", CurrentCount);
-        CurrentCount++;
+        CurrentCount += 1;
         _logger.LogInformation("New Count: {NewCount}", CurrentCount);
     }
 }

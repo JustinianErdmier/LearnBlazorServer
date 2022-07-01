@@ -6,7 +6,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<CounterModel>();
+builder.Services.AddScoped<ICounterService, CounterService>();
 
 // To load isolated style sheets (e.g., Index.razor.css) in any environment other than Development, the following line must be included.
 // builder.WebHost.UseStaticWebAssets();

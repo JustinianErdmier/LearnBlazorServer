@@ -1,15 +1,29 @@
 ﻿@page "/counter"
-@inject ILogger<Counter> Logger
-@inject CounterModel CounterModel
+@inject ICounterService CounterService
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @CounterModel.CurrentCount</p>
+<p role="status">Current count: @currentCount</p>
 
-@if (CounterModel is not null)
+<button class="btn btn-primary"
+        @onclick="IncrementCount">Click me</button>
+
+@code
 {
-    <button class="btn btn-primary"
-            @onclick="CounterModel.IncrementCount">Click me</button>
+    private int currentCount;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        currentCount = CounterService.CurrentCount;
+    }
+
+    private void IncrementCount()
+    {
+        CounterService.IncrementCount();
+        currentCount = CounterService.CurrentCount;
+    }
 }
