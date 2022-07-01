@@ -1,7 +1,7 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand"
-           href="">BlazorApp</a>
+           href="">Learn Blazor Server</a>
         <button title="Navigation menu"
                 class="navbar-toggler"
                 @onclick="ToggleNavMenu">
@@ -13,6 +13,14 @@
 <div class="@NavMenuCssClass"
      @onclick="ToggleNavMenu">
     <nav class="flex-column">
+        @*
+            By default, the NavLink component's property Match is set to NavLinkMatch.Prefix. This means that it will return true if the first piece of the route data matches.
+            Example: href="counter" will match with localhost:8080/counter, localhost:8080/counter/20, and so on. However, it will not match with localhost:8080/test.
+            
+            The second option is NavLinkMatch.All, which requires that the entire route data match.
+            Example: Home's href is empty, so only routes which are entirely empty will match.
+                     If Counter was set to NavLinkMatch.All, ONLY localhost:8080/counter would match. Any additional route data would cause the match to fail.
+        *@
         <div class="nav-item px-3">
             <NavLink class="nav-link"
                      href=""
@@ -33,6 +41,13 @@
                      href="fetchdata">
                 <span class="oi oi-list-rich"
                       aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link"
+                     href="weather/forecast">
+                <span class="oi oi-cloudy"
+                      aria-hidden="true"></span> Weather Forecast
             </NavLink>
         </div>
     </nav>
