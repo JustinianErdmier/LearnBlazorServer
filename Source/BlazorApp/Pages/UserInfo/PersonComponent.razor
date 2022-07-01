@@ -1,0 +1,16 @@
+﻿<h2>@FirstName @LastName</h2>
+@AddressFragment
+
+
+@code {
+
+    [ Parameter ]
+    public string? FirstName { get; set; }
+
+    [ Parameter ]
+    public string? LastName { get; set; }
+
+    [ Parameter ]
+    public RenderFragment? AddressFragment { get; set; }
+
+}

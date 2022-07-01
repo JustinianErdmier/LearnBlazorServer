@@ -1,0 +1,19 @@
+﻿<div>
+    @if (Address is null)
+    {
+        <h4 class="text-danger">Error loading address...</h4>
+    }
+    else
+    {
+        <h4>@Address.Type</h4>
+        <p>@Address.Street</p>
+        <p>@Address.City, @Address.State &nbsp; @Address.Zip</p>
+    }
+</div>
+
+@code {
+
+    [ Parameter ]
+    public AddressModel? Address { get; set; }
+
+}
