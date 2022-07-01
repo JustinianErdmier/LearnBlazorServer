@@ -1,0 +1,37 @@
+﻿<h3>@pageHeader</h3>
+
+<p>Current Count: @currentCount</p>
+
+<button class="btn btn-primary"
+        @onclick="IncrementCount">Click Me</button>
+
+@code
+{
+    private int currentCount;
+
+    private string pageHeader = "Shared Counter";
+
+    [ Parameter ]
+    public int StartingCount { get; set; }
+
+    [ Parameter ]
+    public string? PageHeader { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        currentCount = StartingCount;
+
+        if (! string.IsNullOrWhiteSpace(PageHeader))
+        {
+            pageHeader = PageHeader;
+        }
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
