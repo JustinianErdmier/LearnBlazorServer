@@ -1,0 +1,25 @@
+﻿<button class="btn btn-outline-primary mx-2"
+        @onclick="ThumbsUp">
+    <span class="oi oi-thumb-up"></span> Approve
+</button>
+
+<button class="btn btn-outline-primary mx-2"
+        @onclick="ThumbsDown">
+    <span class="oi oi-thumb-down"></span> Reject
+</button>
+
+@code
+{
+    [ Parameter ]
+    public EventCallback<string> OnVoted { get; set; }
+
+    private void ThumbsUp()
+    {
+        OnVoted.InvokeAsync("Approved");
+    }
+
+    private void ThumbsDown()
+    {
+        OnVoted.InvokeAsync("Rejected");
+    }
+}

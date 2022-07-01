@@ -8,6 +8,16 @@
 
 Welcome to your new app.
 
+@if (pageApproved)
+{
+    <h2 class="text-success">This page has been approved.</h2>
+}
+
+@if (pageRejected)
+{
+    <h2 class="text-danger">This page has been rejected.</h2>
+}
+
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 <br />
@@ -51,8 +61,22 @@ Welcome to your new app.
     </div>
 </div>
 
+@if (! pageApproved && ! pageRejected)
+{
+    <div class="row">
+        <div class="col-12">
+            <Vote OnVoted="HandleOnVoted"></Vote>
+        </div>
+    </div>
+}
+
 @code
 {
+
+    private bool pageApproved;
+
+    private bool pageRejected;
+
     /// <inheritdoc />
     protected override void OnInitialized()
     {
@@ -66,5 +90,18 @@ Welcome to your new app.
 
     // Log the same data twice in one message...
         Logger.LogInformation("User created with id {UserId} (repeat: id {Id})", id, id); // The value name in the curly braces should have to be different, but the same variable is passed in twice.
+    }
+
+    private void HandleOnVoted(string result)
+    {
+        switch (result)
+        {
+            case "Approved":
+                pageApproved = true;
+                break;
+            case "Rejected":
+                pageRejected = true;
+                break;
+        }
     }
 }
