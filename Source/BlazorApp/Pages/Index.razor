@@ -62,13 +62,9 @@ Welcome to your new app.
         int id = Configuration.GetValue<int>("WeatherForecast:ForecastDays");
 
     // Log it using Structured Logging...
-        Logger.LogInformation("User created with id {UserId}", id);
-
-    // The name used in the curly braces does not need to match the variable name. It's purely positional. 
+        Logger.LogInformation("User created with id {UserId}", id); // The name used in the curly braces does not need to match the variable name. It's purely positional. 
 
     // Log the same data twice in one message...
-        Logger.LogInformation("User created with id {UserId} (repeat: id {Id})", id, id);
-
-    // The value name in the curly braces should have to be different, but the same variable is passed in twice.
+        Logger.LogInformation("User created with id {UserId} (repeat: id {Id})", id, id); // The value name in the curly braces should have to be different, but the same variable is passed in twice.
     }
 }

@@ -3,8 +3,6 @@
 
 <PageTitle>Weather forecast</PageTitle>
 
-@inject WeatherForecastService ForecastService
-
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
@@ -38,15 +36,4 @@ else
         }
         </tbody>
     </table>
-}
-
-@code {
-
-    private WeatherForecast[]? forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    }
-
 }
