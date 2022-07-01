@@ -10,7 +10,6 @@
 
 @if (CounterModel is not null)
 {
-    Logger.LogInformation("Current Count: {CurrentCount}", CounterModel.CurrentCount);
     <button class="btn btn-primary"
             @onclick="CounterModel.IncrementCount">Click me</button>
 }
