@@ -1,0 +1,30 @@
+﻿@page "/SampleForm"
+<h3>Sample Form</h3>
+
+<EditForm Model="sample"
+          style="display: flex; flex-direction: column; gap: 1rem; width: 100px;">
+    <InputText @bind-Value="sample.SamplePassword"
+               type="password"></InputText>
+
+    <InputNumber @bind-Value="sample.SampleInt"></InputNumber>
+
+    <InputNumber @bind-Value="sample.SampleDouble"></InputNumber>
+
+    <InputCheckbox @bind-Value="sample.SampleBool"></InputCheckbox>
+
+    <InputDate @bind-Value="sample.SampleDateTime"></InputDate>
+
+    <InputSelect @bind-Value="sample.DropDownValue">
+        <option value="">Select item...</option>
+        <option value="1">Simple Option</option>
+        <option value="2">Complex Option</option>
+        <option value="3">Very Complex Option</option>
+    </InputSelect>
+</EditForm>
+
+@code {
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    private SampleModel sample = new();
+
+}

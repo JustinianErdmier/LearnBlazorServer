@@ -1,0 +1,88 @@
+﻿@page "/CascadeDemo"
+@inject IJSRuntime JsRuntime
+
+<h3>Cascade Demo</h3>
+
+<EditForm Model="@cascade">
+    <select @onchange="HandleFirstDropDownChange">
+        <option value="">Select Media Type</option>
+        @foreach (KeyValuePair<int, string> mediaType in mediaTypes)
+        {
+            <option value="@mediaType.Key">@mediaType.Value</option>
+        }
+    </select>
+    @if (subTypes.Count > 0)
+    {
+        <select id="secondDropDown"
+                @onchange="HandleSecondDropDownChange">
+            <option value="">Select Sub Type</option>
+            @foreach (KeyValuePair<int, string> subType in subTypes)
+            {
+                <option value="@subType.Key">@subType.Value</option>
+            }
+        </select>
+    }
+</EditForm>
+
+@code {
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    private CascadeModel cascade = new();
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    private Dictionary<int, string> mediaTypes = new();
+
+    private Dictionary<int, string> subTypes = new();
+
+    public CascadeDemo()
+    {
+        mediaTypes.Add(1, "Movies");
+        mediaTypes.Add(2, "TV Shows");
+        mediaTypes.Add(3, "Books");
+    }
+
+    private void HandleSecondDropDownChange(ChangeEventArgs eventArgs)
+    {
+        if (string.IsNullOrWhiteSpace(eventArgs.Value?.ToString()))
+        {
+            return;
+        }
+
+        cascade.SecondId = int.Parse(eventArgs.Value.ToString()!);
+    }
+
+    private async Task HandleFirstDropDownChange(ChangeEventArgs eventArgs)
+    {
+        cascade.SecondId = 0;
+        subTypes = new Dictionary<int, string>();
+
+        if (string.IsNullOrWhiteSpace(eventArgs.Value?.ToString()))
+        {
+            cascade.FirstId = 0;
+            return;
+        }
+
+        cascade.FirstId = int.Parse(eventArgs.Value.ToString()!);
+        cascade.SecondId = 0;
+
+        subTypes = cascade.FirstId switch
+                   {
+                   1 => new Dictionary<int, string>
+                        {
+                            { 1, "Top Gun" }, { 2, "Die Hard" }, { 3, "Star Wars" }
+                        },
+                   2 => new Dictionary<int, string>
+                        {
+                            { 4, "The Pretender" }, { 5, "Warehouse 13" }, { 6, "Eureka" }
+                        },
+                   3 => new Dictionary<int, string>
+                        {
+                            { 7, "Finish" }, { 8, "Linchpin" }, { 9, "The Phoenix Project" }
+                        },
+                   _ => new Dictionary<int, string>()
+                   };
+
+        await JsRuntime.InvokeAsync<object>("resetSecondDropDown", new { });
+    }
+
+}
