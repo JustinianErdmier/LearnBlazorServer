@@ -1,0 +1,100 @@
+﻿@page "/MilkshakeOrderSheet"
+@inject ISampleDataService DataService
+
+<h3>MilkshakeOrderSheet</h3>
+
+@if (showOrderForm)
+{
+    <EditForm Model="order"
+              OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <p>
+            <label>
+                Type of Milkshake:
+                <InputSelect @bind-Value="order.Type">
+                    <option value="">Select a type...</option>
+                    @if (milkshakeTypes is not null)
+                    {
+                        @foreach (string type in milkshakeTypes)
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    }
+                </InputSelect>
+            </label>
+        </p>
+        <p>
+            <label>
+                Size of Milkshake:
+                <InputSelect @bind-Value="order.Size">
+                    <option value="">Select a size...</option>
+                    @if (milkshakeSizes is not null)
+                    {
+                        foreach (string size in milkshakeSizes)
+                        {
+                            <option value="@size">@size</option>
+                        }
+                    }
+                </InputSelect>
+            </label>
+        </p>
+        <p>
+            <label>
+                Name:
+                <InputText @bind-Value="order.Name"></InputText>
+            </label>
+        </p>
+        <p>
+            <label>
+                Quantity:
+                <InputNumber @bind-Value="order.Quantity"></InputNumber>
+            </label>
+        </p>
+        <p>
+            <label>
+                Add Whipped Cream:
+                <InputCheckbox @bind-Value="order.AddWhippedCream"></InputCheckbox>
+            </label>
+        </p>
+        <button class="btn btn-outline-primary"
+                type="submit">
+            Submit Order
+        </button>
+    </EditForm>
+}
+
+@if (! string.IsNullOrEmpty(orderResult))
+{
+    <h4>@orderResult</h4>
+}
+
+@code {
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    private MilkshakeOrderModel order = new();
+
+    private List<string>? milkshakeTypes;
+
+    private List<string>? milkshakeSizes;
+
+    private bool showOrderForm = true;
+
+    private string orderResult = string.Empty;
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        milkshakeTypes = DataService.GetMilkshakeTypes();
+        milkshakeSizes = DataService.GetMilkshakeSizes();
+    }
+
+    private void HandleValidSubmit()
+    {
+        showOrderForm = false;
+        orderResult = $"Your order for {order.Quantity} {order.Size} {order.Type} milkshakes has been placed.";
+    }
+
+}
